@@ -21,15 +21,15 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceD
 import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-@Resource(name =RestConstants.VERSION_1 +CohortRest.COHORT_NAMESPACE+"/testcohorttype", supportedClass = CohortType.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*, 1.10.*, 1.11.*","1.12.*" })
+@Resource(name = RestConstants.VERSION_1 + CohortRest.COHORT_NAMESPACE + "/testcohorttype", supportedClass = CohortType.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*, 1.10.*, 1.11.*", "1.12.*"})
 public class CohortTypeRequestResource extends DataDelegatingCrudResource<CohortType> {
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(
 			Representation rep) {
-
+		
 		DelegatingResourceDescription description = null;
-
+		
 		if (Context.isAuthenticated()) {
 			description = new DelegatingResourceDescription();
 			if (rep instanceof DefaultRepresentation) {
@@ -44,45 +44,49 @@ public class CohortTypeRequestResource extends DataDelegatingCrudResource<Cohort
 				description.addProperty("uuid");
 			}
 		}
-		return description;   
+		return description;
 		
 	}
-	 @Override
-		public DelegatingResourceDescription getCreatableProperties() {
-			DelegatingResourceDescription description = new DelegatingResourceDescription();
-			description.addRequiredProperty("name");
-			return description;
-		}
+	
+	@Override
+	public DelegatingResourceDescription getCreatableProperties() {
+		DelegatingResourceDescription description = new DelegatingResourceDescription();
+		description.addRequiredProperty("name");
+		return description;
+	}
+	
 	@Override
 	public CohortType save(CohortType arg0) {
 		return Context.getService(CohortService.class).saveCohort(arg0);
 	}
-
+	
 	@Override
 	protected void delete(CohortType arg0, String arg1, RequestContext arg2)
 			throws ResponseException {
 		Context.getService(CohortService.class).purgeCohortType(arg0);
 		
 	}
-
+	
 	@Override
 	public void purge(CohortType arg0, RequestContext arg1)
 			throws ResponseException {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public CohortType newDelegate() {
 		return new CohortType();
 	}
+	
 	@Override
 	public CohortType getByUniqueId(String uuid) {
 		return Context.getService(CohortService.class).getCohortTypeUuid(uuid);
 	}
-
+	
 	public SimpleObject getAll(RequestContext arg0) throws ResponseException {
-		List<CohortType> cohort=Context.getService(CohortService.class).findCohortType();
+		List<CohortType> cohort = Context.getService(CohortService.class).findCohortType();
 		return new NeedsPaging<CohortType>(cohort, arg0).toSimpleObject(this);
 	}
-
+	
 }

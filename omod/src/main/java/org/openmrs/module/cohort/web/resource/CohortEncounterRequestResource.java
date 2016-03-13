@@ -23,22 +23,22 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceD
 import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-@Resource(name =RestConstants.VERSION_1 +CohortRest.COHORT_NAMESPACE+"/cohortenc", supportedClass = CohortEncounter.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*, 1.10.*, 1.11.*","1.12.*" })
+@Resource(name = RestConstants.VERSION_1 + CohortRest.COHORT_NAMESPACE + "/cohortenc", supportedClass = CohortEncounter.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*, 1.10.*, 1.11.*", "1.12.*"})
 public class CohortEncounterRequestResource extends DataDelegatingCrudResource<CohortEncounter> {
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(
 			Representation rep) {
-
+		
 		DelegatingResourceDescription description = null;
-
+		
 		if (Context.isAuthenticated()) {
 			description = new DelegatingResourceDescription();
 			if (rep instanceof DefaultRepresentation) {
 				description.addProperty("encounterId");
 				description.addProperty("cohort");
-				description.addProperty("encounterType",Representation.REF);
-				description.addProperty("location",Representation.REF);
+				description.addProperty("encounterType", Representation.REF);
+				description.addProperty("location", Representation.REF);
 				description.addProperty("form", Representation.REF);
 				description.addProperty("visit");
 				description.addProperty("encounterDateTime");
@@ -56,7 +56,7 @@ public class CohortEncounterRequestResource extends DataDelegatingCrudResource<C
 		}
 		return description;
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
@@ -64,43 +64,41 @@ public class CohortEncounterRequestResource extends DataDelegatingCrudResource<C
 		description.addRequiredProperty("visit");
 		return description;
 	}
+	
 	@Override
 	public CohortEncounter newDelegate() {
 		return new CohortEncounter();
 	}
-
+	
 	@Override
 	public CohortEncounter save(CohortEncounter arg0) {
 		return Context.getService(CohortService.class).saveCohortEncounters(arg0);
 	}
-
+	
 	@Override
 	protected void delete(CohortEncounter arg0, String arg1, RequestContext arg2)
 			throws ResponseException {
-	
-		 Context.getService(CohortService.class).purgeCohortEncounters(arg0);
+		
+		Context.getService(CohortService.class).purgeCohortEncounters(arg0);
 	}
-
+	
 	@Override
 	public CohortEncounter getByUniqueId(String uuid) {
 		return Context.getService(CohortService.class).getCohortEncUuid(uuid);
 	}
-
+	
 	@Override
 	public void purge(CohortEncounter arg0, RequestContext arg1)
 			throws ResponseException {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public SimpleObject getAll(RequestContext arg0) throws ResponseException {
-		List<CohortEncounter> cohort=Context.getService(CohortService.class).findCohortEncounters();
+		List<CohortEncounter> cohort = Context.getService(CohortService.class).findCohortEncounters();
 		return new NeedsPaging<CohortEncounter>(cohort, arg0).toSimpleObject(this);
 	}
-
 	
 	
-
-
 }

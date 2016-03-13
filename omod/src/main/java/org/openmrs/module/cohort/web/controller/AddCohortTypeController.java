@@ -3,12 +3,12 @@
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://license.openmrs.org
- *
+ * <p/>
  * Software distributed under the License is distributed on an "AS IS"
  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
  * License for the specific language governing rights and limitations
  * under the License.
- *
+ * <p/>
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 package org.openmrs.module.cohort.web.controller;
@@ -52,40 +52,39 @@ import org.springframework.web.servlet.ModelAndView;
  * The main controller.
  */
 @Controller
-public class  AddCohortTypeController {
+public class AddCohortTypeController {
 	
-	 @Autowired(required=true)
-	 @Qualifier("addCohortTypeValidator")
-	 private Validator validator;
+	@Autowired(required = true)
+	@Qualifier("addCohortTypeValidator")
+	private Validator validator;
 	
 	@RequestMapping(value = "/module/cohort/addcohorttype", method = RequestMethod.GET)
 	public void manage(ModelMap model) {
-		model.addAttribute("cohorttype",new CohortType());
+		model.addAttribute("cohorttype", new CohortType());
 	}
 	
-	 @RequestMapping(value = "/module/cohort/addcohorttype.form", method = RequestMethod.POST)
-	    public String onSearch(WebRequest request, HttpSession httpSession, ModelMap model,
-	    		@RequestParam(required = false, value = "name") String cohort_name,
-                @RequestParam(required = false, value = "description") String description,
-	                                   @ModelAttribute("cohorttype") CohortType cohorttype, BindingResult errors) {
-	        CohortService departmentService = Context.getService(CohortService.class);
-	        if (!Context.isAuthenticated()) {
-	            errors.reject("Required");
-	        }  
-	        this.validator.validate(cohorttype,errors);
-	        System.out.println("Before BR");
-	        if (errors.hasErrors())
-	        {
-	          System.out.println("BR has errors: " + errors.getErrorCount());
-	          System.out.println(errors.getAllErrors());
-	          return "/module/cohort/addcohorttype";
-	        }
-	        if(cohort_name.length()>20)
-	        	httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "name cannot be greater than 20");
-	        else {
-	        	departmentService.saveCohort(cohorttype);
-	        	httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
-	        }
-	        return null;
-	     }
+	@RequestMapping(value = "/module/cohort/addcohorttype.form", method = RequestMethod.POST)
+	public String onSearch(WebRequest request, HttpSession httpSession, ModelMap model,
+	                       @RequestParam(required = false, value = "name") String cohort_name,
+	                       @RequestParam(required = false, value = "description") String description,
+	                       @ModelAttribute("cohorttype") CohortType cohorttype, BindingResult errors) {
+		CohortService departmentService = Context.getService(CohortService.class);
+		if (!Context.isAuthenticated()) {
+			errors.reject("Required");
+		}
+		this.validator.validate(cohorttype, errors);
+		System.out.println("Before BR");
+		if (errors.hasErrors()) {
+			System.out.println("BR has errors: " + errors.getErrorCount());
+			System.out.println(errors.getAllErrors());
+			return "/module/cohort/addcohorttype";
+		}
+		if (cohort_name.length() > 20) {
+			httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "name cannot be greater than 20");
+		} else {
+			departmentService.saveCohort(cohorttype);
+			httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
+		}
+		return null;
+	}
 }

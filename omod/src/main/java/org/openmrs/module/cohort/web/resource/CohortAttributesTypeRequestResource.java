@@ -19,34 +19,34 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResou
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-@Resource(name =RestConstants.VERSION_1 +CohortRest.COHORT_NAMESPACE+"/testcohortatttype", supportedClass = CohortAttributeType.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*, 1.10.*, 1.11.*","1.12.*" })
+@Resource(name = RestConstants.VERSION_1 + CohortRest.COHORT_NAMESPACE + "/testcohortatttype", supportedClass = CohortAttributeType.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*, 1.10.*, 1.11.*", "1.12.*"})
 public class CohortAttributesTypeRequestResource extends DataDelegatingCrudResource<CohortAttributeType> {
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(
 			Representation rep) {
-
+		
 		DelegatingResourceDescription description = null;
-
+		
 		if (Context.isAuthenticated()) {
 			description = new DelegatingResourceDescription();
 			if (rep instanceof DefaultRepresentation) {
 				description.addProperty("cohortAttributeTypeId");
 				description.addProperty("name");
 				description.addProperty("description");
-				description.addProperty("format");		
+				description.addProperty("format");
 				description.addProperty("uuid");
 			} else if (rep instanceof FullRepresentation) {
 				description.addProperty("cohortAttributeTypeId");
 				description.addProperty("name");
 				description.addProperty("description");
-				description.addProperty("format");		
+				description.addProperty("format");
 				description.addProperty("uuid");
 			}
 		}
 		return description;
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
@@ -54,30 +54,31 @@ public class CohortAttributesTypeRequestResource extends DataDelegatingCrudResou
 		description.addRequiredProperty("format");
 		return description;
 	}
+	
 	@Override
 	public CohortAttributeType save(CohortAttributeType arg0) {
 		return Context.getService(CohortService.class).saveCohort(arg0);
 	}
-
+	
 	@Override
 	protected void delete(CohortAttributeType arg0, String arg1,
-			RequestContext arg2) throws ResponseException {
+	                      RequestContext arg2) throws ResponseException {
 		Context.getService(CohortService.class).purgeCohortAttributes(arg0);
 		
 	}
-
+	
 	@Override
 	public void purge(CohortAttributeType arg0, RequestContext arg1)
 			throws ResponseException {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public CohortAttributeType newDelegate() {
 		return new CohortAttributeType();
 	}
-
+	
 	@Override
 	public CohortAttributeType getByUniqueId(String arg0) {
 		return Context.getService(CohortService.class).getCohortAttributeTypeUuid(arg0);

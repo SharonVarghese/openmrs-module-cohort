@@ -4,7 +4,7 @@ package org.openmrs.module.cohort;
  * v. 2.0. If a copy of the MPL was not distributed with this file, You can
  * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
  * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
- *
+ * <p/>
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
@@ -51,7 +51,7 @@ public class EncounterSearchCriteria {
 	private Collection<Visit> visits;
 	
 	private boolean includeVoided;
-
+	
 	/**
 	 * Instead of calling this constructor directly, it is recommended to use {@link EncounterSearchCriteriaBuilder}.
 	 * @param patient the patient the encounter is for
@@ -67,9 +67,9 @@ public class EncounterSearchCriteria {
 	 * @param includeVoided whether to include the voided encounters or not
 	 */
 	public EncounterSearchCriteria(CohortM cohort, Location location, Date fromDate, Date toDate, Date dateChanged,
-								   Collection<Form> enteredViaForms, Collection<EncounterType> encounterTypes,
-								   Collection<Provider> providers, Collection<VisitType> visitTypes,
-								   Collection<Visit> visits, boolean includeVoided) {
+	                               Collection<Form> enteredViaForms, Collection<EncounterType> encounterTypes,
+	                               Collection<Provider> providers, Collection<VisitType> visitTypes,
+	                               Collection<Visit> visits, boolean includeVoided) {
 		this.setCohort(cohort);
 		this.location = location;
 		this.fromDate = fromDate;
@@ -82,11 +82,11 @@ public class EncounterSearchCriteria {
 		this.visits = visits;
 		this.includeVoided = includeVoided;
 	}
-
+	
 	/**
 	 * @return the patient the encounter is for
 	 */
-
+	
 	
 	/**
 	 * @return the location this encounter took place
@@ -101,67 +101,67 @@ public class EncounterSearchCriteria {
 	public Date getFromDate() {
 		return fromDate;
 	}
-
+	
 	/**
 	 * @return the maximum date (exclusive) this encounter took place
 	 */
 	public Date getToDate() {
 		return toDate;
 	}
-
+	
 	/**
 	 * @return the minimum date this encounter was changed
 	 */
 	public Date getDateChanged() {
 		return dateChanged;
 	}
-
+	
 	/**
 	 * @return the form that entered this encounter must be in this collection
 	 */
 	public Collection<Form> getEnteredViaForms() {
 		return enteredViaForms;
 	}
-
+	
 	/**
 	 * @return the type of encounter must be in this list
 	 */
 	public Collection<EncounterType> getEncounterTypes() {
 		return encounterTypes;
 	}
-
+	
 	/**
 	 * @return the provider of this encounter must be in this list
 	 */
 	public Collection<Provider> getProviders() {
 		return providers;
 	}
-
+	
 	/**
 	 * @return the visit types of this encounter must be in this list
 	 */
 	public Collection<VisitType> getVisitTypes() {
 		return visitTypes;
 	}
-
+	
 	/**
 	 * @return the visits of this encounter must be in this list
 	 */
 	public Collection<Visit> getVisits() {
 		return visits;
 	}
-
+	
 	/**
 	 * @return whether to include the voided encounters or not
 	 */
 	public boolean getIncludeVoided() {
 		return includeVoided;
 	}
-
+	
 	public CohortM getCohort() {
 		return cohort;
 	}
-
+	
 	public void setCohort(CohortM cohort) {
 		this.cohort = cohort;
 	}

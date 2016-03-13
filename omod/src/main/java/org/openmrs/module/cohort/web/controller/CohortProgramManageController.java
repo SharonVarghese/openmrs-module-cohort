@@ -3,12 +3,12 @@
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://license.openmrs.org
- *
+ * <p/>
  * Software distributed under the License is distributed on an "AS IS"
  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
  * License for the specific language governing rights and limitations
  * under the License.
- *
+ * <p/>
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 package org.openmrs.module.cohort.web.controller;
@@ -45,22 +45,20 @@ import org.springframework.web.servlet.ModelAndView;
  * The main controller.
  */
 @Controller
-public class  CohortProgramManageController {
+public class CohortProgramManageController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
-	@RequestMapping(value="/module/cohort/cohortprogrammanage", method = RequestMethod.GET)
-	public void manage(HttpSession httpSession,HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "name") String cohort_name,  @ModelAttribute("cohortprogram")CohortProgram cohort)
-	{
+	@RequestMapping(value = "/module/cohort/cohortprogrammanage", method = RequestMethod.GET)
+	public void manage(HttpSession httpSession, HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "name") String cohort_name, @ModelAttribute("cohortprogram") CohortProgram cohort) {
 		CohortService service = Context.getService(CohortService.class);
-		if("search".equals(request.getParameter("search")))
-		{
-	    List<CohortProgram> list1=service.findCohortProgram(cohort_name);
-	    for (int i = 0; i < list1.size(); i++) {
-		   CohortProgram c = (CohortProgram) list1.get(i);
-		   model.addAttribute("CohortTypeList",list1); 
+		if ("search".equals(request.getParameter("search"))) {
+			List<CohortProgram> list1 = service.findCohortProgram(cohort_name);
+			for (int i = 0; i < list1.size(); i++) {
+				CohortProgram c = (CohortProgram) list1.get(i);
+				model.addAttribute("CohortTypeList", list1);
+			}
+		}
 	}
-	}
- }
 }
 	

@@ -3,12 +3,12 @@
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://license.openmrs.org
- *
+ * <p/>
  * Software distributed under the License is distributed on an "AS IS"
  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
  * License for the specific language governing rights and limitations
  * under the License.
- *
+ * <p/>
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 package org.openmrs.module.cohort.extension.html;
@@ -46,9 +46,9 @@ public class AdminList extends AdministrationSectionExt {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 		map.put("/module/cohort/cohortmanage.form", "Manage Cohorts");
 		map.put("/module/cohort/configurecohortmetadata.form", "Configure Cohort MetaData");
-		map.put("/module/cohort/cohortenc.form","Manage Cohort Encounters");
+		map.put("/module/cohort/cohortenc.form", "Manage Cohort Encounters");
 		map.put("/module/cohort/visitmanage.form", "Manage Cohort Visit");
-		map.put("/module/cohort/cohortobs.form","Manage Cohort Observations");
+		map.put("/module/cohort/cohortobs.form", "Manage Cohort Observations");
 		return map;
 	}
 	

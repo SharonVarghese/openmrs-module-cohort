@@ -3,12 +3,12 @@
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://license.openmrs.org
- *
+ * <p/>
  * Software distributed under the License is distributed on an "AS IS"
  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
  * License for the specific language governing rights and limitations
  * under the License.
- *
+ * <p/>
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 package org.openmrs.module.cohort.web.controller;
@@ -76,65 +76,64 @@ import org.springframework.web.servlet.ModelAndView;
  * The main controller.
  */
 @Controller
-public class  AddRoleController {
+public class AddRoleController {
 	
-	 @Autowired(required=true)
-	 @Qualifier("addRoleValidator")
-	 private Validator validator;
-	 List<Patient> list1=new ArrayList();
-	 Set set1 = new HashSet();
-	 
+	@Autowired(required = true)
+	@Qualifier("addRoleValidator")
+	private Validator validator;
+	List<Patient> list1 = new ArrayList();
+	Set set1 = new HashSet();
+	
 	@RequestMapping(value = "/module/cohort/arole", method = RequestMethod.GET)
-		public void manage(ModelMap model) {
-			model.addAttribute("cohortrole",new CohortRole());
-			List<String> cohorttype=new ArrayList<String>();
-			CohortService service1=Context.getService(CohortService.class);
-			List<CohortType> list1 = service1.getAllCohortTypes();
-			for (int i = 0; i < list1.size(); i++) {
-    		    CohortType c = list1.get(i);
-    		    cohorttype.add(c.getName());
-        	}
-			model.addAttribute("formats", cohorttype);
-		} 
-	 @RequestMapping(value = "module/cohort/arole.form", method = RequestMethod.POST)
-	    public String onSubmit(WebRequest request, HttpSession httpSession,HttpServletRequest request1,
-	                                   @RequestParam(required = false, value = "name") String cohort_name,
-	                                   @ModelAttribute("cohortrole") CohortRole cohortrole ,BindingResult errors,ModelMap model)
-	       {
-		    CohortRole cr=new CohortRole();
-		    CohortType cohort1=new CohortType();
-		    String cohort_type_name=request.getParameter("format");
-	        CohortService departmentService = Context.getService(CohortService.class);
-	        if (!Context.isAuthenticated()) {
-	            errors.reject("Required");
-	        } 
-	        this.validator.validate(cohortrole,errors);
-	        System.out.println("Before BR");
-	        if (errors.hasErrors())
-	        {
-	          System.out.println("BR has errors: " + errors.getErrorCount());
-	          System.out.println(errors.getAllErrors());
-	          return "/module/cohort/arole";
-	        }
-	        if(cohort_name.length()>20)
-	        	httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "name cannot be greater than 20");
-	        else {
-	 		        	List<CohortType> cohorttype1 =departmentService.findCohortType(cohort_type_name);
-	 		        	for (int i = 0; i < cohorttype1.size(); i++) {
-	 		    		    cohort1 =cohorttype1.get(i);
-	 		        	}
-	 		        	cohortrole.setCohortType(cohort1);
-	 		        	departmentService.saveCohortRole(cohortrole); 
-	 		        	httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR,"insertion success");
-	 		        	model.addAttribute("formats", cohorttype1);
-	 		        }       
-	 			//}
-	        	/*catch (ParseException e) {
+	public void manage(ModelMap model) {
+		model.addAttribute("cohortrole", new CohortRole());
+		List<String> cohorttype = new ArrayList<String>();
+		CohortService service1 = Context.getService(CohortService.class);
+		List<CohortType> list1 = service1.getAllCohortTypes();
+		for (int i = 0; i < list1.size(); i++) {
+			CohortType c = list1.get(i);
+			cohorttype.add(c.getName());
+		}
+		model.addAttribute("formats", cohorttype);
+	}
+	
+	@RequestMapping(value = "module/cohort/arole.form", method = RequestMethod.POST)
+	public String onSubmit(WebRequest request, HttpSession httpSession, HttpServletRequest request1,
+	                       @RequestParam(required = false, value = "name") String cohort_name,
+	                       @ModelAttribute("cohortrole") CohortRole cohortrole, BindingResult errors, ModelMap model) {
+		CohortRole cr = new CohortRole();
+		CohortType cohort1 = new CohortType();
+		String cohort_type_name = request.getParameter("format");
+		CohortService departmentService = Context.getService(CohortService.class);
+		if (!Context.isAuthenticated()) {
+			errors.reject("Required");
+		}
+		this.validator.validate(cohortrole, errors);
+		System.out.println("Before BR");
+		if (errors.hasErrors()) {
+			System.out.println("BR has errors: " + errors.getErrorCount());
+			System.out.println(errors.getAllErrors());
+			return "/module/cohort/arole";
+		}
+		if (cohort_name.length() > 20) {
+			httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "name cannot be greater than 20");
+		} else {
+			List<CohortType> cohorttype1 = departmentService.findCohortType(cohort_type_name);
+			for (int i = 0; i < cohorttype1.size(); i++) {
+				cohort1 = cohorttype1.get(i);
+			}
+			cohortrole.setCohortType(cohort1);
+			departmentService.saveCohortRole(cohortrole);
+			httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
+			model.addAttribute("formats", cohorttype1);
+		}
+		//}
+		    	/*catch (ParseException e) {
 	 				// TODO Auto-generated catch block
 	 				e.printStackTrace();
 	 			}  	
 	     }*/
-	    return null;
- }
+		return null;
+	}
 }
 	

@@ -29,62 +29,81 @@ public class CohortM extends BaseOpenmrsData {
 	public boolean isGroupCohort() {
 		return groupCohort;
 	}
+	
 	public void setGroupCohort(boolean groupCohort) {
 		this.groupCohort = groupCohort;
 	}
+	
 	@Override
 	public Integer getId() {
 		return getCohortId();
 	}
+	
 	@Override
 	public void setId(Integer id) {
 		setCohortId(id);
 	}
+	
 	public Integer getCohortId() {
 		return cohortId;
 	}
+	
 	public void setCohortId(Integer cohortId) {
 		this.cohortId = cohortId;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public Date getStartDate() {
 		return startDate;
 	}
+	
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+	
 	public Date getEndDate() {
 		return endDate;
 	}
+	
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
 	public CohortType getCohortType() {
 		return cohortType;
 	}
+	
 	public void setCohortType(CohortType cohortType) {
 		this.cohortType = cohortType;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public Location getClocation() {
 		return clocation;
 	}
+	
 	public void setClocation(Location clocation) {
 		this.clocation = clocation;
 	}
+	
 	public CohortProgram getCohortProgram() {
 		return cohortProgram;
 	}
+	
 	public void setCohortProgram(CohortProgram cohortProgram) {
 		this.cohortProgram = cohortProgram;
 	}
@@ -97,7 +116,7 @@ public class CohortM extends BaseOpenmrsData {
 	
 	@Override
 	public String toString() {
-		return  this.name  ;
+		return this.name;
 	}
 }
 	

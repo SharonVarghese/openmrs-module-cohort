@@ -3,12 +3,12 @@
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://license.openmrs.org
- *
+ * <p/>
  * Software distributed under the License is distributed on an "AS IS"
  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
  * License for the specific language governing rights and limitations
  * under the License.
- *
+ * <p/>
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 package org.openmrs.module.cohort.web.controller;
@@ -67,67 +67,61 @@ import org.springframework.web.servlet.ModelAndView;
  * The main controller.
  */
 @Controller
-public class  AddCohortMemberAttributesController {
+public class AddCohortMemberAttributesController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
-	 private SessionStatus status;
+	private SessionStatus status;
 	
-	@RequestMapping(value ="/module/cohort/addcohortmemberattribute", method = RequestMethod.GET)
-	public void manage(@RequestParam(required = false, value="cma") Integer id,WebRequest request,ModelMap model,@ModelAttribute("cohortatt") CohortMemberAttribute cohortattribute)
-	{
-		int a=0;
-		CohortMember cohort=null;
-		CohortMemberAttributeType coat=null;
-		CohortService s=Context.getService(CohortService.class);
-		List<CohortMemberAttributeType> ls=s.findCohortMemberAttributeType();
-		model.addAttribute("attypes",ls);
-		String atype=request.getParameter("cohortMemberAttributeTypeId");
-		if(StringUtils.hasText(atype))
-		{
-		a=Integer.parseInt(atype);
+	@RequestMapping(value = "/module/cohort/addcohortmemberattribute", method = RequestMethod.GET)
+	public void manage(@RequestParam(required = false, value = "cma") Integer id, WebRequest request, ModelMap model, @ModelAttribute("cohortatt") CohortMemberAttribute cohortattribute) {
+		int a = 0;
+		CohortMember cohort = null;
+		CohortMemberAttributeType coat = null;
+		CohortService s = Context.getService(CohortService.class);
+		List<CohortMemberAttributeType> ls = s.findCohortMemberAttributeType();
+		model.addAttribute("attypes", ls);
+		String atype = request.getParameter("cohortMemberAttributeTypeId");
+		if (StringUtils.hasText(atype)) {
+			a = Integer.parseInt(atype);
 		}
-		List<CohortMemberAttributeType> cat=s.findCohortMemAttType(a);
-		if(cat.size()>0)
-		{
-			coat=cat.get(0);
+		List<CohortMemberAttributeType> cat = s.findCohortMemAttType(a);
+		if (cat.size() > 0) {
+			coat = cat.get(0);
 		}
-		List<CohortMember> c=s.getCohortMember(id);
-		if(c.size()>0)
-		{
-		cohort=c.get(0);
+		List<CohortMember> c = s.getCohortMember(id);
+		if (c.size() > 0) {
+			cohort = c.get(0);
 		}
 		cohortattribute.setCohortMember(cohort);
-		model.addAttribute("cohortmember",cohort);
+		model.addAttribute("cohortmember", cohort);
 		cohortattribute.setCohortMemberAttributeType(coat);
-		model.addAttribute("cohortatt",cohortattribute);
-		model.addAttribute("selectedvalue",request.getParameter("selectedvalue"));
+		model.addAttribute("cohortatt", cohortattribute);
+		model.addAttribute("selectedvalue", request.getParameter("selectedvalue"));
 	}
-	 @RequestMapping(value = "/module/cohort/addcohortmemberattribute.form", method = RequestMethod.POST)
-	    public ModelAndView onSubmit(WebRequest request, HttpSession httpSession, ModelMap model,
-	    		@RequestParam(required=false, value="cohortMemberAttributeTypeId")Integer cohort_attribute_type,
-                @RequestParam(required = false, value = "selectedvalue") String description,
-	                                   @ModelAttribute("cohortatt") CohortMemberAttribute cohortattributes, BindingResult errors) {
-		   CohortService departmentService = Context.getService(CohortService.class);
-	       CohortMemberAttributeType a=null;
-	       Integer id=Integer.parseInt(request.getParameter("cma"));
-	        List<CohortMember> cohort1=departmentService.getCohortMember(id);
-	        if(description=="")
-	        {
-	        	httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Values cannot be null");
-	        }
-	        else {
-	        	List<CohortMemberAttributeType> att=departmentService.findCohortMemAttType(cohort_attribute_type);
-	    		for(int i=0;i<att.size();i++)
-	    		{
-	    			 a=att.get(i);
-	    		}
-	    		cohortattributes.setCohortMember(cohort1.get(0));
-	    		cohortattributes.setCohortMemberAttributeType(a);
-	    		departmentService.saveCohortMemberAttribute(cohortattributes);
-	    		model.addAttribute("attypes",att);
-	    		model.addAttribute("cohortatt",cohortattributes);
-	        	httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
-	        }
-	        return null;
-	     }
+	
+	@RequestMapping(value = "/module/cohort/addcohortmemberattribute.form", method = RequestMethod.POST)
+	public ModelAndView onSubmit(WebRequest request, HttpSession httpSession, ModelMap model,
+	                             @RequestParam(required = false, value = "cohortMemberAttributeTypeId") Integer cohort_attribute_type,
+	                             @RequestParam(required = false, value = "selectedvalue") String description,
+	                             @ModelAttribute("cohortatt") CohortMemberAttribute cohortattributes, BindingResult errors) {
+		CohortService departmentService = Context.getService(CohortService.class);
+		CohortMemberAttributeType a = null;
+		Integer id = Integer.parseInt(request.getParameter("cma"));
+		List<CohortMember> cohort1 = departmentService.getCohortMember(id);
+		if (description == "") {
+			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Values cannot be null");
+		} else {
+			List<CohortMemberAttributeType> att = departmentService.findCohortMemAttType(cohort_attribute_type);
+			for (int i = 0; i < att.size(); i++) {
+				a = att.get(i);
+			}
+			cohortattributes.setCohortMember(cohort1.get(0));
+			cohortattributes.setCohortMemberAttributeType(a);
+			departmentService.saveCohortMemberAttribute(cohortattributes);
+			model.addAttribute("attypes", att);
+			model.addAttribute("cohortatt", cohortattributes);
+			httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
+		}
+		return null;
+	}
 }

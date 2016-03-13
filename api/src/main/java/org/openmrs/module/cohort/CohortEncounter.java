@@ -1,4 +1,5 @@
 package org.openmrs.module.cohort;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +25,7 @@ import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 
-public class CohortEncounter extends  BaseOpenmrsData {
+public class CohortEncounter extends BaseOpenmrsData {
 	
 	private Integer encounterId;
 	private CohortM cohort;
@@ -41,34 +42,43 @@ public class CohortEncounter extends  BaseOpenmrsData {
 	public Form getForm() {
 		return form;
 	}
+	
 	public void setForm(Form form) {
 		this.form = form;
 	}
+	
 	public CohortVisit getVisit() {
 		return visit;
 	}
+	
 	public void setVisit(CohortVisit visit) {
 		this.visit = visit;
 	}
+	
 	private Date encounterDateTime;
 	
 	@Override
 	public Integer getId() {
 		return getEncounterId();
 	}
+	
 	@Override
 	public void setId(Integer id) {
 		setEncounterId(id);
 	}
+	
 	public Integer getEncounterId() {
 		return encounterId;
 	}
+	
 	public void setEncounterId(Integer encounterId) {
 		this.encounterId = encounterId;
 	}
+	
 	public Location getLocation() {
 		return location;
 	}
+	
 	public void setLocation(Location location) {
 		this.location = location;
 	}
@@ -76,24 +86,30 @@ public class CohortEncounter extends  BaseOpenmrsData {
 	public Date getEncounterDateTime() {
 		return encounterDateTime;
 	}
+	
 	public void setEncounterDateTime(Date encounterDateTime) {
 		this.encounterDateTime = encounterDateTime;
 	}
+	
 	public EncounterType getEncounterType() {
 		return encounterType;
 	}
+	
 	public void setEncounterType(EncounterType encounterType) {
 		this.encounterType = encounterType;
 	}
+	
 	public CohortM getCohort() {
 		return cohort;
 	}
+	
 	public void setCohort(CohortM cohort) {
 		this.cohort = cohort;
 	}
+	
 	public void setProvider(EncounterRole role, Provider provider) {
 		boolean hasProvider = false;
-		for (Iterator<EncounterProvider> it = encounterProviders.iterator(); it.hasNext();) {
+		for (Iterator<EncounterProvider> it = encounterProviders.iterator(); it.hasNext(); ) {
 			EncounterProvider encounterProvider = it.next();
 			if (encounterProvider.getEncounterRole().equals(role)) {
 				if (!encounterProvider.getProvider().equals(provider)) {
@@ -129,14 +145,14 @@ public class CohortEncounter extends  BaseOpenmrsData {
 	
 	
 	public Set<CohortObs> getObs() {
-     Set<CohortObs> ret = new HashSet<CohortObs>();
+		Set<CohortObs> ret = new HashSet<CohortObs>();
 		
 		if (this.obs != null) {
 			for (CohortObs o : this.obs) {
 				ret.addAll(getObsLeaves(o));
 			}
 		}
-			return ret;
+		return ret;
 	}
 	
 	private List<CohortObs> getObsLeaves(CohortObs obsParent) {
@@ -260,15 +276,19 @@ public class CohortEncounter extends  BaseOpenmrsData {
 			obs.remove(observation);
 		}
 	}
+	
 	public Date getEncounterDatetime() {
 		return encounterDatetime;
 	}
+	
 	public void setEncounterDatetime(Date encounterDatetime) {
 		this.encounterDatetime = encounterDatetime;
 	}
+	
 	public Set<EncounterProvider> getEncounterProviders() {
 		return encounterProviders;
 	}
+	
 	public void setEncounterProviders(Set<EncounterProvider> encounterProviders) {
 		this.encounterProviders = encounterProviders;
 	}
@@ -299,16 +319,16 @@ public class CohortEncounter extends  BaseOpenmrsData {
 	
 	/**
 	 * @param provider The provider to set.
-	 * @deprecated since 1.9, use {@link #setProvider(EncounterRole, Provider)}
 	 * @should set existing provider for unknown role
+	 * @deprecated since 1.9, use {@link #setProvider(EncounterRole, Provider)}
 	 */
 	@Deprecated
 	public void setProvider(Person provider) {
 		EncounterRole unknownRole = Context.getEncounterService().getEncounterRoleByUuid(
-		    EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID);
+				EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID);
 		if (unknownRole == null) {
 			throw new IllegalStateException("No 'Unknown' encounter role with uuid "
-			        + EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID + ".");
+					+ EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID + ".");
 		}
 		Collection<Provider> providers = Context.getProviderService().getProvidersByPerson(provider);
 		if (providers == null || providers.isEmpty()) {
