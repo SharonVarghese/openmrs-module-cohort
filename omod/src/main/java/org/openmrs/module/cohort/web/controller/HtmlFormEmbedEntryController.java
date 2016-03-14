@@ -59,7 +59,7 @@ public class HtmlFormEmbedEntryController {
 	public CohortFormEntrySession getFormEntrySession(HttpServletRequest request,
 	                                                  // @RequestParam doesn't pick up query parameters (in the url) in a POST, so I'm handling encounterId, modeParam, and which specially
 	                                            /*@RequestParam(value="mode", required=false) String modeParam,*/
-                                                /*@RequestParam(value="encounterId", required=false) Integer encounterId,*/
+	                                            /*@RequestParam(value="encounterId", required=false) Integer encounterId,*/
                                                 /*@RequestParam(value="which", required=false) String which,*/
                                                       @RequestParam(value = "cid", required = false) Integer cohortId,
                                                 /*@RequestParam(value="personId", required=false) Integer personId,*/

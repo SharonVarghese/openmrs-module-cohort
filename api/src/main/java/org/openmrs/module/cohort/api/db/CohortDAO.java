@@ -42,7 +42,7 @@ import org.openmrs.module.cohort.api.CohortService;
 import org.openmrs.module.cohort.EncounterSearchCriteria;
 
 /**
- *  Database methods for {@link cohortService}.
+ * Database methods for {@link cohortService}.
  */
 public interface CohortDAO {
 	

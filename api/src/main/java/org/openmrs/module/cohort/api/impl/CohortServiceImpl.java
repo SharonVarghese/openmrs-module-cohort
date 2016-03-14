@@ -67,8 +67,7 @@ public class CohortServiceImpl extends BaseOpenmrsService implements
 	private CohortDAO dao;
 	
 	/**
-	 * @param dao
-	 *            the dao to set
+	 * @param dao the dao to set
 	 */
 	
 	public CohortDAO getDao() {

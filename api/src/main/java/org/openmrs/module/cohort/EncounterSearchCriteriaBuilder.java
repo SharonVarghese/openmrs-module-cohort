@@ -24,6 +24,7 @@ import org.openmrs.VisitType;
  * A convenience builder for {@link EncounterSearchCriteria}. Create a builder, set
  * its properties to desired values and finally call {@link #createEncounterSearchCriteria()}
  * to create the actual search criteria instance.
+ *
  * @see EncounterSearchCriteria
  */
 public class EncounterSearchCriteriaBuilder {
@@ -93,7 +94,7 @@ public class EncounterSearchCriteriaBuilder {
 	
 	/**
 	 * @param enteredViaForms the form that entered the encounter must be in this collection.
-	 *                           This search parameter is omitted if the set is null or empty.
+	 *                        This search parameter is omitted if the set is null or empty.
 	 * @return this builder instance
 	 */
 	public EncounterSearchCriteriaBuilder setEnteredViaForms(Collection<Form> enteredViaForms) {
@@ -103,7 +104,7 @@ public class EncounterSearchCriteriaBuilder {
 	
 	/**
 	 * @param encounterTypes the type of the encounter must be in this collection.
-	 *                           This search parameter is omitted if the set is null or empty.
+	 *                       This search parameter is omitted if the set is null or empty.
 	 * @return this builder instance
 	 */
 	public EncounterSearchCriteriaBuilder setEncounterTypes(Collection<EncounterType> encounterTypes) {
@@ -113,7 +114,7 @@ public class EncounterSearchCriteriaBuilder {
 	
 	/**
 	 * @param providers the provider of the encounter must be in this collection.
-	 *                           This search parameter is omitted if the set is null or empty.
+	 *                  This search parameter is omitted if the set is null or empty.
 	 * @return this builder instance
 	 */
 	public EncounterSearchCriteriaBuilder setProviders(Collection<Provider> providers) {
@@ -123,7 +124,7 @@ public class EncounterSearchCriteriaBuilder {
 	
 	/**
 	 * @param visitTypes the visit types of the encounter must be in this collection.
-	 *                           This search parameter is omitted if the set is null or empty.
+	 *                   This search parameter is omitted if the set is null or empty.
 	 * @return this builder instance
 	 */
 	public EncounterSearchCriteriaBuilder setVisitTypes(Collection<VisitType> visitTypes) {
@@ -133,7 +134,7 @@ public class EncounterSearchCriteriaBuilder {
 	
 	/**
 	 * @param visits the visits of the encounter must be in this collection.
-	 *                           This search parameter is omitted if the set is null or empty.
+	 *               This search parameter is omitted if the set is null or empty.
 	 * @return this builder instance
 	 */
 	public EncounterSearchCriteriaBuilder setVisits(Collection<Visit> visits) {
@@ -152,6 +153,7 @@ public class EncounterSearchCriteriaBuilder {
 	
 	/**
 	 * Create an {@link EncounterSearchCriteria} with the properties of this builder instance.
+	 *
 	 * @return a new search criteria instance
 	 */
 	public EncounterSearchCriteria createEncounterSearchCriteria() {

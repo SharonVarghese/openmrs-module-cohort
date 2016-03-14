@@ -61,7 +61,7 @@ public class CohortManageController {
 		if ("search".equals(request.getParameter("search"))) {
 			List<CohortM> list1 = service.findCohorts(cohort_name);
 		/* for(int i=0;i<list1.size();i++)
-	     {
+		 {
 	     CohortM c=list1.get(i);
 	     a=service.getCount(c.getName());
 	     }*/
