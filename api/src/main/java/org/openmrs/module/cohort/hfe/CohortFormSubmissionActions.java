@@ -64,7 +64,7 @@ public class CohortFormSubmissionActions extends FormSubmissionActions {
 	/**
 	 * Removes the most recently added Person from the submission stack. All other objects added
 	 * after that Person are removed as well.
-	 * <p/>
+	 *
 	 * (So, in the current one-person-per-form model, this would empty the entire submission stack)
 	 *
 	 * @throws InvalidActionException
@@ -232,7 +232,7 @@ public class CohortFormSubmissionActions extends FormSubmissionActions {
 	/**
 	 * Creates an new Obs and associates with the most recently added Person, Encounter, and
 	 * ObsGroup (if applicable) on the stack.
-	 * <p/>
+	 *
 	 * Note that this method does not actually commit the Obs to the database, but instead adds the
 	 * Obs to a list of Obs to be added. The changes are applied elsewhere in the framework.
 	 *
@@ -285,7 +285,7 @@ public class CohortFormSubmissionActions extends FormSubmissionActions {
 	
 	/**
 	 * Modifies an existing Obs.
-	 * <p/>
+	 *
 	 * This method works by adding the current Obs to a list of Obs to void, and then adding the new
 	 * Obs to a list of Obs to create. Note that this method does not commit the changes to the
 	 * database--the changes are applied elsewhere in the framework.

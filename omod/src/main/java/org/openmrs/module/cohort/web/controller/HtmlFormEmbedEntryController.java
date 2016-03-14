@@ -37,9 +37,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * The controller for entering/viewing a form.
- * <p/>
+ *
  * Handles {@code htmlFormEntry.form} requests. Renders view {@code htmlFormEntry.jsp}.
- * <p/>
+ *
  * TODO: This has a bit too much logic in the onSubmit method. Move that into the FormEntrySession.
  */
 @Controller
