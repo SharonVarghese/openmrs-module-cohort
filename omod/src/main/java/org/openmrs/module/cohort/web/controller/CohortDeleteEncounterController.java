@@ -36,31 +36,29 @@ import org.springframework.web.bind.annotation.RequestParam;
  * The main controller.
  */
 @Controller
-public class  CohortDeleteEncounterController {
+public class CohortDeleteEncounterController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	@RequestMapping(value = "/module/cohort/deleteenc.form", method = RequestMethod.GET)
-	public void manage(HttpSession httpSession,HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "encounterId")Integer id,  @ModelAttribute("cohortencounter") CohortEncounter cencounter) {
-		model.addAttribute("cohortencounter", new CohortEncounter()); 
-		 CohortService departmentService = Context.getService(CohortService.class);
-		 if ("delete".equals(request.getParameter("delete")))
-		 {
-		    List<CohortEncounter> list1=departmentService.findCohortEncounters();
-		    for (int i = 0; i < list1.size(); i++) {
-			    CohortEncounter c = list1.get(i);
-		  if(c.getEncounterId().equals(id)) {
-            try {
-                departmentService.purgeCohortEncounters(c);
-                httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "delete success");
-            }
-            catch (Exception ex) {
-                httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "delete failure");
-                log.error("Failed to delete cohort", ex);
-            }
-		 }
-	}
-		 
-	}
+	public void manage(HttpSession httpSession, HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "encounterId") Integer id, @ModelAttribute("cohortencounter") CohortEncounter cencounter) {
+		model.addAttribute("cohortencounter", new CohortEncounter());
+		CohortService departmentService = Context.getService(CohortService.class);
+		if ("delete".equals(request.getParameter("delete"))) {
+			List<CohortEncounter> list1 = departmentService.findCohortEncounters();
+			for (int i = 0; i < list1.size(); i++) {
+				CohortEncounter c = list1.get(i);
+				if (c.getEncounterId().equals(id)) {
+					try {
+						departmentService.purgeCohortEncounters(c);
+						httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "delete success");
+					} catch (Exception ex) {
+						httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "delete failure");
+						log.error("Failed to delete cohort", ex);
+					}
+				}
+			}
+			
+		}
 	}
 }

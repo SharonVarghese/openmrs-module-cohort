@@ -46,21 +46,19 @@ import org.springframework.web.servlet.ModelAndView;
  * The main controller.
  */
 @Controller
-public class  CohortMemberAttributeManageController {
+public class CohortMemberAttributeManageController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
-	@RequestMapping(value="/module/cohort/cohortmemberattributemanage", method = RequestMethod.GET)
-	public void manage(HttpSession httpSession,HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "value") String attribute_type_name,  @ModelAttribute("cohortatt") CohortAttribute attributes)
-	{
+	@RequestMapping(value = "/module/cohort/cohortmemberattributemanage", method = RequestMethod.GET)
+	public void manage(HttpSession httpSession, HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "value") String attribute_type_name, @ModelAttribute("cohortatt") CohortAttribute attributes) {
 		CohortService service = Context.getService(CohortService.class);
-		if("search".equals(request.getParameter("search")))
-		{
-		    List<CohortMemberAttribute> list1=service.findCohortMemberAttribute(attribute_type_name);
-		    for (int i = 0; i < list1.size(); i++) {
-		    	CohortMemberAttribute c = (CohortMemberAttribute) list1.get(i);
-		    }
-			 model.addAttribute("CohortAttributesList",list1); 
+		if ("search".equals(request.getParameter("search"))) {
+			List<CohortMemberAttribute> list1 = service.findCohortMemberAttribute(attribute_type_name);
+			for (int i = 0; i < list1.size(); i++) {
+				CohortMemberAttribute c = (CohortMemberAttribute) list1.get(i);
+			}
+			model.addAttribute("CohortAttributesList", list1);
 		}
 	}
 }

@@ -61,53 +61,53 @@ import org.springframework.web.servlet.ModelAndView;
  * The main controller.
  */
 @Controller
-public class  AddCohortAttributesTypeController {
-	 @Autowired(required=true)
-	 @Qualifier("addCohortAttributeTypeValidator")
-	 private Validator validator;
+public class AddCohortAttributesTypeController {
+	@Autowired(required = true)
+	@Qualifier("addCohortAttributeTypeValidator")
+	private Validator validator;
 	
 	@RequestMapping(value = "/module/cohort/addcohortattributestype", method = RequestMethod.GET)
 	public void manage(ModelMap model) {
-		model.addAttribute("cohortattributes",new CohortAttributeType());
-		 List<String> formats = new ArrayList<String>(FieldGenHandlerFactory.getSingletonInstance().getHandlers().keySet());
+		model.addAttribute("cohortattributes", new CohortAttributeType());
+		List<String> formats = new ArrayList<String>(FieldGenHandlerFactory.getSingletonInstance().getHandlers().keySet());
+		formats.add("java.lang.Character");
+		formats.add("java.lang.Integer");
+		formats.add("java.lang.Float");
+		formats.add("java.lang.Boolean");
+		model.addAttribute("formats", formats);
+	}
+	
+	@RequestMapping(value = "/module/cohort/addcohortattributestype.form", method = RequestMethod.POST)
+	public String onSubmit(WebRequest request, HttpSession httpSession, ModelMap model,
+	                       @RequestParam(required = false, value = "name") String attribute_type,
+	                       @RequestParam(required = false, value = "description") String description,
+	                       @ModelAttribute("cohortattributes") CohortAttributeType cohortattributes, BindingResult errors) {
+		CohortService departmentService = Context.getService(CohortService.class);
+		//PatientService patientService=Context.getService(PatientService.class);
+		String voided = request.getParameter("voided");
+		String format = request.getParameter("format");
+		this.validator.validate(cohortattributes, errors);
+		System.out.println("Before BR");
+		if (errors.hasErrors()) {
+			System.out.println("BR has errors: " + errors.getErrorCount());
+			System.out.println(errors.getAllErrors());
+			
+			model.addAttribute("cohortattributes", new CohortAttributeType());
+			List<String> formats = new ArrayList<String>(FieldGenHandlerFactory.getSingletonInstance().getHandlers().keySet());
 			formats.add("java.lang.Character");
 			formats.add("java.lang.Integer");
 			formats.add("java.lang.Float");
 			formats.add("java.lang.Boolean");
-			model.addAttribute("formats",formats); 
+			model.addAttribute("formats", formats);
+			return "/module/cohort/addcohortattributestype";
+		}
+		if (attribute_type.length() > 20) {
+			httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "attribute type cannot be greater than 20");
+		} else {
+			cohortattributes.setFormat(format);
+			departmentService.saveCohort(cohortattributes);
+			httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
+		}
+		return null;
 	}
-	 @RequestMapping(value = "/module/cohort/addcohortattributestype.form", method = RequestMethod.POST)
-	    public String onSubmit(WebRequest request, HttpSession httpSession, ModelMap model,
-	    		@RequestParam(required = false, value = "name") String attribute_type,
-                @RequestParam(required = false, value = "description") String description,
-	                                   @ModelAttribute("cohortattributes") CohortAttributeType cohortattributes, BindingResult errors) {
-	        CohortService departmentService = Context.getService(CohortService.class);
-	        //PatientService patientService=Context.getService(PatientService.class);
-	        String voided = request.getParameter("voided");
-	        String format=request.getParameter("format");
-	        this.validator.validate(cohortattributes,errors);
-	        System.out.println("Before BR");
-	        if (errors.hasErrors())
-	        {
-	          System.out.println("BR has errors: " + errors.getErrorCount());
-	          System.out.println(errors.getAllErrors());
-	         
-	            model.addAttribute("cohortattributes",new CohortAttributeType());
-			    List<String> formats = new ArrayList<String>(FieldGenHandlerFactory.getSingletonInstance().getHandlers().keySet());
-				formats.add("java.lang.Character");
-				formats.add("java.lang.Integer");
-				formats.add("java.lang.Float");
-				formats.add("java.lang.Boolean");
-				model.addAttribute("formats",formats); 
-				return "/module/cohort/addcohortattributestype";
-	        }
-	        if(attribute_type.length()>20)
-	        	httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "attribute type cannot be greater than 20");
-	        else {
-	        	cohortattributes.setFormat(format);
-	        	departmentService.saveCohort(cohortattributes); 
-	        	httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
-	        }
-	        return null;
-	     }
 }

@@ -49,41 +49,38 @@ import org.springframework.web.servlet.ModelAndView;
  * The main controller.
  */
 @Controller
-public class  CohortManageController {
+public class CohortManageController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	
-	@RequestMapping(value="/module/cohort/cohortmanage", method = RequestMethod.GET)
-	public void manage(HttpSession httpSession,HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "name") String cohort_name,@ModelAttribute("cohortmodule")CohortM cohort)
-	{
+	@RequestMapping(value = "/module/cohort/cohortmanage", method = RequestMethod.GET)
+	public void manage(HttpSession httpSession, HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "name") String cohort_name, @ModelAttribute("cohortmodule") CohortM cohort) {
 		//Long a=0L;
 		CohortService service = Context.getService(CohortService.class);
-		if("search".equals(request.getParameter("search")))
-		{
-	     List<CohortM> list1=service.findCohorts(cohort_name);
-	    /* for(int i=0;i<list1.size();i++)
-	     {
+		if ("search".equals(request.getParameter("search"))) {
+			List<CohortM> list1 = service.findCohorts(cohort_name);
+		/* for(int i=0;i<list1.size();i++)
+		 {
 	     CohortM c=list1.get(i);
 	     a=service.getCount(c.getName());
 	     }*/
-	     model.addAttribute("CohortList",list1);
-	   //  model.addAttribute("cohortmodule",a);
-	     for(int i=0;i<list1.size();i++)
-	     {
-	    	 cohort=list1.get(i);
-	    	 if(cohort.isGroupCohort()==true)
-	    		 model.addAttribute("htmlformId", 2);
-	    	 else
-	    		 model.addAttribute("htmlformId", 1);
-	     }
+			model.addAttribute("CohortList", list1);
+			//  model.addAttribute("cohortmodule",a);
+			for (int i = 0; i < list1.size(); i++) {
+				cohort = list1.get(i);
+				if (cohort.isGroupCohort() == true) {
+					model.addAttribute("htmlformId", 2);
+				} else {
+					model.addAttribute("htmlformId", 1);
+				}
+			}
 		}
 	}
 	
-	@RequestMapping(value="/module/cohort/configurecohortmetadata", method = RequestMethod.GET)
-	public void manage1(HttpSession httpSession,HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "name") String cohort_name,@ModelAttribute("cohortmodule")CohortM cohort)
-	{
-		CohortM cohort1=new CohortM();
-	     model.addAttribute("cohort",cohort1);
-	}	
+	@RequestMapping(value = "/module/cohort/configurecohortmetadata", method = RequestMethod.GET)
+	public void manage1(HttpSession httpSession, HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "name") String cohort_name, @ModelAttribute("cohortmodule") CohortM cohort) {
+		CohortM cohort1 = new CohortM();
+		model.addAttribute("cohort", cohort1);
+	}
 }

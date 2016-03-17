@@ -20,15 +20,15 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResou
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-@Resource(name =RestConstants.VERSION_1 +CohortRest.COHORT_NAMESPACE+"/testcohortvisit", supportedClass = CohortVisit.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*, 1.10.*, 1.11.*","1.12.*" })
+@Resource(name = RestConstants.VERSION_1 + CohortRest.COHORT_NAMESPACE + "/testcohortvisit", supportedClass = CohortVisit.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*, 1.10.*, 1.11.*", "1.12.*"})
 public class CohortVisitRequestResource extends DataDelegatingCrudResource<CohortVisit> {
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(
 			Representation rep) {
-
+		
 		DelegatingResourceDescription description = null;
-
+		
 		if (Context.isAuthenticated()) {
 			description = new DelegatingResourceDescription();
 			if (rep instanceof DefaultRepresentation) {
@@ -53,7 +53,7 @@ public class CohortVisitRequestResource extends DataDelegatingCrudResource<Cohor
 		}
 		return description;
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
@@ -62,35 +62,35 @@ public class CohortVisitRequestResource extends DataDelegatingCrudResource<Cohor
 		description.addProperty("visitType");
 		return description;
 	}
-
+	
 	@Override
 	public CohortVisit save(CohortVisit arg0) {
 		return Context.getService(CohortService.class).saveCohortVisit(arg0);
 	}
-
+	
 	@Override
 	protected void delete(CohortVisit arg0, String arg1, RequestContext arg2)
 			throws ResponseException {
-	 Context.getService(CohortService.class).purgeCohortVisit(arg0);
+		Context.getService(CohortService.class).purgeCohortVisit(arg0);
 		
 	}
-
+	
 	@Override
 	public void purge(CohortVisit arg0, RequestContext arg1)
 			throws ResponseException {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public CohortVisit newDelegate() {
 		return new CohortVisit();
 	}
-
+	
 	@Override
 	public CohortVisit getByUniqueId(String uuid) {
-	  return Context.getService(CohortService.class).getCohortVisitUuid(uuid);
+		return Context.getService(CohortService.class).getCohortVisitUuid(uuid);
 	}
-
-
+	
+	
 }

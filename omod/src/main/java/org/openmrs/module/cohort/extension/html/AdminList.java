@@ -21,7 +21,7 @@ import org.openmrs.module.web.extension.AdministrationSectionExt;
 
 /**
  * This class defines the links that will appear on the administration page under the
- * "cohort.title" heading. 
+ * "cohort.title" heading.
  */
 public class AdminList extends AdministrationSectionExt {
 	
@@ -46,9 +46,9 @@ public class AdminList extends AdministrationSectionExt {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 		map.put("/module/cohort/cohortmanage.form", "Manage Cohorts");
 		map.put("/module/cohort/configurecohortmetadata.form", "Configure Cohort MetaData");
-		map.put("/module/cohort/cohortenc.form","Manage Cohort Encounters");
+		map.put("/module/cohort/cohortenc.form", "Manage Cohort Encounters");
 		map.put("/module/cohort/visitmanage.form", "Manage Cohort Visit");
-		map.put("/module/cohort/cohortobs.form","Manage Cohort Observations");
+		map.put("/module/cohort/cohortobs.form", "Manage Cohort Observations");
 		return map;
 	}
 	

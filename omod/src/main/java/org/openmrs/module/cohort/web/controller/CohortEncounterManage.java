@@ -43,14 +43,12 @@ public class CohortEncounterManage {
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	@RequestMapping(value = "/module/cohort/cohortenc.form", method = RequestMethod.GET)
-	public void manage(HttpSession httpSession,HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "encounterId")Integer id,  @ModelAttribute("cohortencounters")CohortEncounter cencounters)
-	{
-		CohortEncounter enc=new CohortEncounter();
+	public void manage(HttpSession httpSession, HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "encounterId") Integer id, @ModelAttribute("cohortencounters") CohortEncounter cencounters) {
+		CohortEncounter enc = new CohortEncounter();
 		CohortService service = Context.getService(CohortService.class);
-		    if("search".equals(request.getParameter("search")))
-		    {
-		    	 List<CohortEncounter> list1=service.findCohortEnc(id);
-		    	 model.addAttribute("CohortList",list1); 
-		    }
+		if ("search".equals(request.getParameter("search"))) {
+			List<CohortEncounter> list1 = service.findCohortEnc(id);
+			model.addAttribute("CohortList", list1);
+		}
 	}
 }

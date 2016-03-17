@@ -10,18 +10,18 @@ import org.springframework.validation.Validator;
 
 @Component
 @Qualifier("addCohortValidator")
-public class AddCohortValidator implements Validator{
-
+public class AddCohortValidator implements Validator {
+	
 	@Override
 	public boolean supports(Class<?> arg0) {
-		 return arg0.equals(CohortM.class);
+		return arg0.equals(CohortM.class);
 	}
-
+	
 	@Override
 	public void validate(Object arg0, Errors arg1) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1,"name","required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1,"description","required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1,"startDate","required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(arg1,"endDate","required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "name", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "description", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "startDate", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(arg1, "endDate", "required");
 	}
 }

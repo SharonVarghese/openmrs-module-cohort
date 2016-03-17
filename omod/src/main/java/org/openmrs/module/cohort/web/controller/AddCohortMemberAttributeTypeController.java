@@ -59,45 +59,44 @@ import org.springframework.web.servlet.ModelAndView;
  * The main controller.
  */
 @Controller
-public class  AddCohortMemberAttributeTypeController {
+public class AddCohortMemberAttributeTypeController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
-	 private SessionStatus status;
+	private SessionStatus status;
 	
 	@RequestMapping(value = "/module/cohort/addcohortmemberattributetype", method = RequestMethod.GET)
 	public void manage(ModelMap model) {
-		model.addAttribute("cohortattributes",new CohortMemberAttributeType());
-		 List<String> formats = new ArrayList<String>(FieldGenHandlerFactory.getSingletonInstance().getHandlers().keySet());
+		model.addAttribute("cohortattributes", new CohortMemberAttributeType());
+		List<String> formats = new ArrayList<String>(FieldGenHandlerFactory.getSingletonInstance().getHandlers().keySet());
+		formats.add("java.lang.Character");
+		formats.add("java.lang.Integer");
+		formats.add("java.lang.Float");
+		formats.add("java.lang.Boolean");
+		model.addAttribute("formats", formats);
+	}
+	
+	@RequestMapping(value = "/module/cohort/addcohortmemberattributetype.form", method = RequestMethod.POST)
+	public ModelAndView onSubmit(WebRequest request, HttpSession httpSession, ModelMap model,
+	                             @RequestParam(required = false, value = "name") String attribute_type,
+	                             @RequestParam(required = false, value = "description") String description,
+	                             @ModelAttribute("cohortattributes") CohortMemberAttributeType cohortattributes, BindingResult errors) {
+		CohortService departmentService = Context.getService(CohortService.class);
+		String voided = request.getParameter("voided");
+		String format = request.getParameter("format");
+		if (attribute_type == "" && description == "") {
+			httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Values cannot be null");
+			model.addAttribute("cohortattributes", new CohortMemberAttributeType());
+			List<String> formats = new ArrayList<String>(FieldGenHandlerFactory.getSingletonInstance().getHandlers().keySet());
 			formats.add("java.lang.Character");
 			formats.add("java.lang.Integer");
 			formats.add("java.lang.Float");
 			formats.add("java.lang.Boolean");
-			model.addAttribute("formats",formats); 
+			model.addAttribute("formats", formats);
+		} else {
+			cohortattributes.setFormat(format);
+			departmentService.saveCohortMemberAttributeType(cohortattributes);
+			httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
+		}
+		return null;
 	}
-	 @RequestMapping(value = "/module/cohort/addcohortmemberattributetype.form", method = RequestMethod.POST)
-	    public ModelAndView onSubmit(WebRequest request, HttpSession httpSession, ModelMap model,
-	    		@RequestParam(required = false, value = "name") String attribute_type,
-                @RequestParam(required = false, value = "description") String description,
-	                                   @ModelAttribute("cohortattributes") CohortMemberAttributeType cohortattributes, BindingResult errors) {
-	        CohortService departmentService = Context.getService(CohortService.class);
-	        String voided = request.getParameter("voided");
-	        String format=request.getParameter("format");
-	        if(attribute_type=="" && description=="")
-	        {
-	        	httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Values cannot be null");
-	            model.addAttribute("cohortattributes",new CohortMemberAttributeType());
-			    List<String> formats = new ArrayList<String>(FieldGenHandlerFactory.getSingletonInstance().getHandlers().keySet());
-				formats.add("java.lang.Character");
-				formats.add("java.lang.Integer");
-				formats.add("java.lang.Float");
-				formats.add("java.lang.Boolean");
-				model.addAttribute("formats",formats); 
-	        }
-	        else {
-	        	cohortattributes.setFormat(format);
-	        	departmentService.saveCohortMemberAttributeType(cohortattributes); 
-	        	httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "insertion success");
-	        }
-	        return null;
-	     }
 }

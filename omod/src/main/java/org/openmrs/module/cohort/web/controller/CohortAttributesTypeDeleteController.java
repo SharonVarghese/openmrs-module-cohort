@@ -35,27 +35,26 @@ import org.springframework.web.bind.annotation.RequestParam;
  * The main controller.
  */
 @Controller
-public class  CohortAttributesTypeDeleteController {
+public class CohortAttributesTypeDeleteController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	@RequestMapping(value = "/module/cohort/deletecohortattributestype", method = RequestMethod.GET)
-	public void manage(HttpSession httpSession,HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "name") String attribute_type,  @ModelAttribute("cohortattributes") CohortAttributeType attributes) {
-		 CohortService departmentService = Context.getService(CohortService.class);
-		    List<CohortAttributeType> list1=departmentService.findCohortAttributes();
-		    for (int i = 0; i < list1.size(); i++) {
-			    CohortAttributeType c = (CohortAttributeType) list1.get(i);
-		 if ("delete".equals(request.getParameter("delete")) && c.getName().equalsIgnoreCase(attribute_type)) {
-            try {
-                departmentService.purgeCohortAttributes(c);
-                httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "delete success");
-            }
-            catch (Exception ex) {
-                httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "delete failure");
-                log.error("Failed to delete cohort", ex);
-            }
-		 }
-		 
-	}
+	public void manage(HttpSession httpSession, HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "name") String attribute_type, @ModelAttribute("cohortattributes") CohortAttributeType attributes) {
+		CohortService departmentService = Context.getService(CohortService.class);
+		List<CohortAttributeType> list1 = departmentService.findCohortAttributes();
+		for (int i = 0; i < list1.size(); i++) {
+			CohortAttributeType c = (CohortAttributeType) list1.get(i);
+			if ("delete".equals(request.getParameter("delete")) && c.getName().equalsIgnoreCase(attribute_type)) {
+				try {
+					departmentService.purgeCohortAttributes(c);
+					httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "delete success");
+				} catch (Exception ex) {
+					httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "delete failure");
+					log.error("Failed to delete cohort", ex);
+				}
+			}
+			
+		}
 	}
 }

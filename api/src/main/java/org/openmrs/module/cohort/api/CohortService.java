@@ -46,17 +46,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This service exposes module's core functionality. It is a Spring managed bean which is configured in moduleApplicationContext.xml.
- * <p>
+ *
  * It can be accessed only via Context:<br>
  * <code>
  * Context.getService(cohortService.class).someMethod();
  * </code>
- * 
+ *
  * @see org.openmrs.api.context.Context
  */
 @Transactional
 public interface CohortService extends OpenmrsService {
-     
+	
 	/*
 	 * Add service methods here
 	 * 
@@ -131,7 +131,7 @@ public interface CohortService extends OpenmrsService {
 	
 	public CohortType saveCohort(CohortType cohort);
 	
-	public CohortType getCohortType(Integer id) ;
+	public CohortType getCohortType(Integer id);
 	
 	public CohortEncounter getCohortEncounter(Integer id);
 	
@@ -151,9 +151,9 @@ public interface CohortService extends OpenmrsService {
 	
 	public List<CohortType> findCohortType();
 	
-	public List<CohortType> findCohortType(String cohort_name); 
+	public List<CohortType> findCohortType(String cohort_name);
 	
-	public List<CohortRole> findCohortRole(String cohort_name); 
+	public List<CohortRole> findCohortRole(String cohort_name);
 	
 	public List<CohortAttributeType> findCohortAttributes();
 	
@@ -162,13 +162,13 @@ public interface CohortService extends OpenmrsService {
 	public List<CohortMemberAttribute> findCohortMemberAttribute(String name);
 	
 	public List<CohortEncounter> findCohortEncounters();
-
+	
 	public void purgeCohort(CohortM cohort);
-
+	
 	public List<CohortM> getCohort(Integer id);
 	
 	public CohortM getCohortId(Integer id);
-
+	
 	public CohortEncounter saveCohortEncounters(CohortEncounter cencounters);
 	
 	public CohortM getCohortUuid(String uuid);
@@ -218,23 +218,24 @@ public interface CohortService extends OpenmrsService {
 	
 	public List<CohortRole> findCohortRole(Integer id);
 	
-	public List<CohortMember> findCohortMember();	
+	public List<CohortMember> findCohortMember();
 	
 	public List<CohortEncounter> getEncountersByCohort(String query, boolean includeVoided);
 	
 	public List<CohortEncounter> filterEncountersByViewPermissions(List<CohortEncounter> encounters, User user);
 	
 	public List<CohortEncounter> getEncounters(CohortM who, Location loc, Date fromDate, Date toDate,
-	        Collection<Form> enteredViaForms, Collection<EncounterType> encounterTypes,boolean includeVoided);
+	                                           Collection<Form> enteredViaForms, Collection<EncounterType> encounterTypes, boolean includeVoided);
 	
 	public List<CohortEncounter> getEncounters(CohortM who, Location loc, Date fromDate, Date toDate,
-	        Collection<Form> enteredViaForms, Collection<EncounterType> encounterTypes, Collection<User> providers,
-	        boolean includeVoided);
+	                                           Collection<Form> enteredViaForms, Collection<EncounterType> encounterTypes, Collection<User> providers,
+	                                           boolean includeVoided);
+	
 	public List<CohortEncounter> getEncountersByCohort(CohortM cohort);
 	
 	public List<CohortObs> getObservationsByCohortAndConcept(CohortM who, Concept question);
 	
 	public List<CohortObs> getObservations(List<CohortM> whom, List<CohortEncounter> encounters, List<Concept> questions,
-	        List<Concept> answers, List<Location> locations, List<String> sort,
-	        Integer mostRecentN, Integer obsGroupId, Date fromDate, Date toDate, boolean includeVoidedObs);	
+	                                       List<Concept> answers, List<Location> locations, List<String> sort,
+	                                       Integer mostRecentN, Integer obsGroupId, Date fromDate, Date toDate, boolean includeVoidedObs);
 }

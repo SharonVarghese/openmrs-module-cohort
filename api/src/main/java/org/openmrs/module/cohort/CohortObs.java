@@ -1,4 +1,5 @@
 package org.openmrs.module.cohort;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -33,7 +34,7 @@ import org.openmrs.obs.ComplexData;
 import org.openmrs.util.Format;
 import org.openmrs.util.Format.FORMAT_TYPE;
 
-public class CohortObs extends  BaseOpenmrsData {
+public class CohortObs extends BaseOpenmrsData {
 	
 	private Integer obsId;
 	private CohortM cohort;
@@ -50,7 +51,7 @@ public class CohortObs extends  BaseOpenmrsData {
 	
 	protected String comment;
 	
-    protected Concept valueCoded;
+	protected Concept valueCoded;
 	
 	protected ConceptName valueCodedName;
 	
@@ -61,16 +62,19 @@ public class CohortObs extends  BaseOpenmrsData {
 	public Integer getValueGroupId() {
 		return valueGroupId;
 	}
+	
 	public void setValueGroupId(Integer valueGroupId) {
 		this.valueGroupId = valueGroupId;
 	}
+	
 	public String getValueModifier() {
 		return valueModifier;
 	}
+	
 	public void setValueModifier(String valueModifier) {
 		this.valueModifier = valueModifier;
 	}
-
+	
 	protected Date valueDatetime;
 	
 	protected Double valueNumeric;
@@ -85,7 +89,7 @@ public class CohortObs extends  BaseOpenmrsData {
 	
 	protected String accessionNumber;
 	
-private static DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+	private static DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	
 	private static DateFormat datetimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
@@ -93,37 +97,48 @@ private static DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	public Integer getId() {
 		return getObsId();
 	}
+	
 	@Override
 	public void setId(Integer id) {
 		setObsId(id);
 	}
+	
 	public Location getLocation() {
 		return location;
 	}
+	
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+	
 	public CohortM getCohort() {
 		return cohort;
 	}
+	
 	public void setCohort(CohortM cohort) {
 		this.cohort = cohort;
 	}
+	
 	public Integer getObsId() {
 		return obsId;
 	}
+	
 	public void setObsId(Integer obsId) {
 		this.obsId = obsId;
 	}
+	
 	public CohortEncounter getEncounterId() {
 		return encounterId;
 	}
+	
 	public void setEncounterId(CohortEncounter encounterId) {
 		this.encounterId = encounterId;
 	}
+	
 	public Date getObsDateTime() {
 		return obsDateTime;
 	}
+	
 	public void setObsDateTime(Date obsDateTime) {
 		this.obsDateTime = obsDateTime;
 	}
@@ -132,6 +147,7 @@ private static DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		// ! symbol used because if it's not empty, we want true
 		return !org.springframework.util.CollectionUtils.isEmpty(getGroupMembers(includeVoided));
 	}
+	
 	public boolean hasGroupMembers() {
 		return hasGroupMembers(false);
 	}
@@ -187,6 +203,7 @@ private static DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	public void setConcept(Concept concept) {
 		this.concept = concept;
 	}
+	
 	public String getValueAsString(Locale locale) {
 		// formatting for the return of numbers of type double
 		NumberFormat nf = NumberFormat.getNumberInstance(locale);
@@ -200,8 +217,7 @@ private static DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 			} else if ("CWE".equals(abbrev)) {
 				if (getValueCoded() == null) {
 					return "";
-				}
-			   else {
+				} else {
 					ConceptName valueCodedName = getValueCodedName();
 					if (valueCodedName != null) {
 						return getValueCoded().getName(locale, false).getName();
@@ -253,11 +269,11 @@ private static DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 			return df.format(getValueNumeric());
 		} else if (getValueCoded() != null) {
 			ConceptName valudeCodedName = getValueCodedName();
-				if (valudeCodedName != null) {
-					return valudeCodedName.getName();
-				} else {
-					return "";
-				}
+			if (valudeCodedName != null) {
+				return valudeCodedName.getName();
+			} else {
+				return "";
+			}
 		} else if (getValueDatetime() != null) {
 			return Format.format(getValueDatetime(), locale, FORMAT_TYPE.DATE);
 		} else if (getValueText() != null) {
@@ -291,7 +307,7 @@ private static DateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		return "";
 	}
 	
-public Boolean getValueAsBoolean() {
+	public Boolean getValueAsBoolean() {
 		
 		if (getValueCoded() != null) {
 			if (getValueCoded().equals(Context.getConceptService().getTrueConcept())) {
@@ -312,7 +328,7 @@ public Boolean getValueAsBoolean() {
 	
 	/**
 	 * Returns the boolean value if the concept of this obs is of boolean datatype
-	 * 
+	 *
 	 * @return true or false if value is set otherwise null
 	 * @should return true if value coded answer concept is true concept
 	 * @should return false if value coded answer concept is false concept
@@ -342,7 +358,7 @@ public Boolean getValueAsBoolean() {
 	
 	/**
 	 * Gets the specific name used for the coded value.
-	 * 
+	 *
 	 * @return the name of the coded value
 	 */
 	public ConceptName getValueCodedName() {
@@ -351,7 +367,7 @@ public Boolean getValueAsBoolean() {
 	
 	/**
 	 * Sets the specific name used for the coded value.
-	 * 
+	 *
 	 * @param valueCodedName the name of the coded value
 	 */
 	public void setValueCodedName(ConceptName valueCodedName) {
@@ -378,13 +394,13 @@ public Boolean getValueAsBoolean() {
 	 * valueComplex has two parts separated by a bar '|' character: part A) the title; and part B)
 	 * the URI. The title is the readable description of the valueComplex that is returned by
 	 * Obs.getValueAsString(). The URI is the location where the ComplexData is stored.
-	 * 
+	 *
 	 * @param valueComplex readable title and URI for the location of the ComplexData binary object.
 	 * @since 1.5
 	 */
 	public void setValueComplex(String valueComplex) {
 		this.valueComplex = valueComplex;
-	}	
+	}
 	
 	public Date getValueDatetime() {
 		return valueDatetime;
@@ -417,8 +433,8 @@ public Boolean getValueAsBoolean() {
 	 */
 	public void setAccessionNumber(String accessionNumber) {
 		this.accessionNumber = accessionNumber;
-	
-}
+		
+	}
 	
 	public void setValueAsString(String s) throws ParseException {
 		if (log.isDebugEnabled()) {
@@ -463,7 +479,7 @@ public Boolean getValueAsBoolean() {
 	public void setValueBoolean(Boolean valueBoolean) {
 		if (valueBoolean != null && getConcept() != null && getConcept().getDatatype().isBoolean()) {
 			setValueCoded(valueBoolean.booleanValue() ? Context.getConceptService().getTrueConcept() : Context
-			        .getConceptService().getFalseConcept());
+					.getConceptService().getFalseConcept());
 		} else if (valueBoolean == null) {
 			setValueCoded(null);
 		}

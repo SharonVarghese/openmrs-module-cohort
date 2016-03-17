@@ -14,7 +14,7 @@
 package org.openmrs.module.cohort;
 
 
-import org.apache.commons.logging.Log; 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.ModuleActivator;
 
@@ -24,7 +24,7 @@ import org.openmrs.module.ModuleActivator;
 public class cohortActivator implements ModuleActivator {
 	
 	protected Log log = LogFactory.getLog(getClass());
-		
+	
 	/**
 	 * @see ModuleActivator#willRefreshContext()
 	 */
@@ -66,5 +66,5 @@ public class cohortActivator implements ModuleActivator {
 	public void stopped() {
 		log.info("cohort Module stopped");
 	}
-		
+	
 }

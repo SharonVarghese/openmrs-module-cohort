@@ -36,16 +36,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class VisitManageController {
 	protected final Log log = LogFactory.getLog(getClass());
-	@RequestMapping(value = "/module/cohort/visitmanage",method = RequestMethod.GET)
-	public void manage(HttpSession httpSession,HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "visitId") String id,  @ModelAttribute("cohortvisit")CohortVisit cvisit)
-	{
-		CohortVisit v=new CohortVisit();
+	
+	@RequestMapping(value = "/module/cohort/visitmanage", method = RequestMethod.GET)
+	public void manage(HttpSession httpSession, HttpServletRequest request, ModelMap model, @RequestParam(required = false, value = "visitId") String id, @ModelAttribute("cohortvisit") CohortVisit cvisit) {
+		CohortVisit v = new CohortVisit();
 		CohortService service = Context.getService(CohortService.class);
-		  if("search".equals(request.getParameter("search")))
-		    {
-	        List<CohortVisit> list1=service.findCohortVisit(id);
-		    model.addAttribute("CohortList",list1); 
-		    model.addAttribute("cohortvisit",list1);
-		    }
-}
+		if ("search".equals(request.getParameter("search"))) {
+			List<CohortVisit> list1 = service.findCohortVisit(id);
+			model.addAttribute("CohortList", list1);
+			model.addAttribute("cohortvisit", list1);
+		}
+	}
 }

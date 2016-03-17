@@ -23,13 +23,12 @@ public class CohortDashboardController {
 	private SessionStatus status;
 	
 	@RequestMapping("/module/cohort/dashboard")
-	public void manage(@RequestParam("cid")Integer id, ModelMap map)
-	{
-		CohortService c=Context.getService(CohortService.class);
-		List<CohortM> cohort1=c.findCohort(id);
-		List<CohortVisit> cohort2=c.findCohortVisit();
-		map.addAttribute("CohortL",cohort1);
-		map.addAttribute("cohort",cohort1.get(0));
-		map.addAttribute("CohortList",cohort2);
+	public void manage(@RequestParam("cid") Integer id, ModelMap map) {
+		CohortService c = Context.getService(CohortService.class);
+		List<CohortM> cohort1 = c.findCohort(id);
+		List<CohortVisit> cohort2 = c.findCohortVisit();
+		map.addAttribute("CohortL", cohort1);
+		map.addAttribute("cohort", cohort1.get(0));
+		map.addAttribute("CohortList", cohort2);
 	}
 }

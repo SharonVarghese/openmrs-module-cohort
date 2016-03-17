@@ -14,6 +14,7 @@
 package org.openmrs.module.cohort.api;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -21,7 +22,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 /**
  * Tests {@link ${CohortService}}.
  */
-public class  CohortServiceTest extends BaseModuleContextSensitiveTest {
+public class CohortServiceTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void shouldSetupContext() {
 		assertNotNull(Context.getService(CohortService.class));

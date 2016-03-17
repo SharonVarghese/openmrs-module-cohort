@@ -20,15 +20,15 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResou
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-@Resource(name =RestConstants.VERSION_1 +CohortRest.COHORT_NAMESPACE+"/testcohortrole", supportedClass = CohortRole.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*, 1.10.*, 1.11.*","1.12.*" })
+@Resource(name = RestConstants.VERSION_1 + CohortRest.COHORT_NAMESPACE + "/testcohortrole", supportedClass = CohortRole.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*, 1.10.*, 1.11.*", "1.12.*"})
 public class CohortRoleRequestResource extends DataDelegatingCrudResource<CohortRole> {
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(
 			Representation rep) {
-
+		
 		DelegatingResourceDescription description = null;
-
+		
 		if (Context.isAuthenticated()) {
 			description = new DelegatingResourceDescription();
 			if (rep instanceof DefaultRepresentation) {
@@ -43,33 +43,39 @@ public class CohortRoleRequestResource extends DataDelegatingCrudResource<Cohort
 				description.addProperty("uuid");
 			}
 		}
-		return description;   
+		return description;
 		
 	}
-	 @Override
-		public DelegatingResourceDescription getCreatableProperties() {
-			DelegatingResourceDescription description = new DelegatingResourceDescription();
-			description.addRequiredProperty("name");
-			return description;
-		}
+	
+	@Override
+	public DelegatingResourceDescription getCreatableProperties() {
+		DelegatingResourceDescription description = new DelegatingResourceDescription();
+		description.addRequiredProperty("name");
+		return description;
+	}
+	
 	@Override
 	public CohortRole newDelegate() {
 		return new CohortRole();
 	}
+	
 	@Override
 	public CohortRole save(CohortRole arg0) {
 		return Context.getService(CohortService.class).saveCohortRole(arg0);
 	}
+	
 	@Override
 	protected void delete(CohortRole arg0, String arg1, RequestContext arg2)
 			throws ResponseException {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public CohortRole getByUniqueId(String arg0) {
 		return Context.getService(CohortService.class).getCohortRoleUuid(arg0);
 	}
+	
 	@Override
 	public void purge(CohortRole arg0, RequestContext arg1)
 			throws ResponseException {
@@ -77,5 +83,5 @@ public class CohortRoleRequestResource extends DataDelegatingCrudResource<Cohort
 		
 	}
 	
-
+	
 }

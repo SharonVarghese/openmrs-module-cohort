@@ -34,24 +34,25 @@ import org.openmrs.module.webservices.rest.web.response.ResponseException;
 import org.openmrs.module.webservices.validation.ValidateUtil;
 import org.springframework.core.convert.converter.Converter;
 
-@Resource(name =RestConstants.VERSION_1 +CohortRest.COHORT_NAMESPACE+"/cohortmember", supportedClass = CohortMember.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*, 1.10.*, 1.11.*","1.12.*" })
-public class CohortMemberRequestResource extends DataDelegatingCrudResource<CohortMember>{
-
+@Resource(name = RestConstants.VERSION_1 + CohortRest.COHORT_NAMESPACE + "/cohortmember", supportedClass = CohortMember.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*, 1.10.*, 1.11.*", "1.12.*"})
+public class CohortMemberRequestResource extends DataDelegatingCrudResource<CohortMember> {
+	
 	
 	@PropertySetter("person")
-	public static void setPerson(CohortMember instance,String uuid){
+	public static void setPerson(CohortMember instance, String uuid) {
 	}
-
-    @PropertyGetter("person")
-    public static Person getPerson(CohortMember instance) {
-        return instance.getPerson();
-    }
+	
+	@PropertyGetter("person")
+	public static Person getPerson(CohortMember instance) {
+		return instance.getPerson();
+	}
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(
 			Representation rep) {
-
+		
 		DelegatingResourceDescription description = null;
-
+		
 		if (Context.isAuthenticated()) {
 			description = new DelegatingResourceDescription();
 			if (rep instanceof DefaultRepresentation) {
@@ -72,7 +73,7 @@ public class CohortMemberRequestResource extends DataDelegatingCrudResource<Coho
 		}
 		return description;
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
@@ -83,69 +84,70 @@ public class CohortMemberRequestResource extends DataDelegatingCrudResource<Coho
 	
 	@Override
 	public Object create(SimpleObject propertiesToCreate, RequestContext context) throws ResponseException {
-        CohortMember delegate = getCohortMember(propertiesToCreate);
-        ValidateUtil.validate(delegate);
+		CohortMember delegate = getCohortMember(propertiesToCreate);
+		ValidateUtil.validate(delegate);
 		delegate = save(delegate);
 		return ConversionUtil.convertToRepresentation(delegate, Representation.DEFAULT);
 	}
 	
 	public CohortMember getCohortMember(SimpleObject propertiesToCreate) {
-        Object personProperty = propertiesToCreate.get("person");
-        Person person = null;
-        if (personProperty == null) {
-            throw new ConversionException("The person property is missing");
-        } else if (personProperty instanceof String) {
-            person = Context.getPersonService().getPersonByUuid((String) personProperty);
-            Context.evictFromSession(person);
-        } else if (personProperty instanceof Map) {
-            person = (Person) ConversionUtil.convert(personProperty, Person.class);
-            propertiesToCreate.put("person", "");
-        }
-
-        CohortMember delegate = new CohortMember(person);
-        setConvertedProperties(delegate, propertiesToCreate, getCreatableProperties(), true);
-        return delegate;
-    }
-
-
+		Object personProperty = propertiesToCreate.get("person");
+		Person person = null;
+		if (personProperty == null) {
+			throw new ConversionException("The person property is missing");
+		} else if (personProperty instanceof String) {
+			person = Context.getPersonService().getPersonByUuid((String) personProperty);
+			Context.evictFromSession(person);
+		} else if (personProperty instanceof Map) {
+			person = (Person) ConversionUtil.convert(personProperty, Person.class);
+			propertiesToCreate.put("person", "");
+		}
+		
+		CohortMember delegate = new CohortMember(person);
+		setConvertedProperties(delegate, propertiesToCreate, getCreatableProperties(), true);
+		return delegate;
+	}
+	
+	
 	@Override
 	public CohortMember newDelegate() {
 		return new CohortMember();
 	}
-
+	
 	@Override
 	public CohortMember save(CohortMember arg0) {
 		return Context.getService(CohortService.class).saveCPatient(arg0);
 	}
-
+	
 	@Override
 	protected void delete(CohortMember arg0, String arg1, RequestContext arg2)
 			throws ResponseException {
 		
 		Context.getService(CohortService.class);
 	}
-
+	
 	@Override
 	public CohortMember getByUniqueId(String uuid) {
 		return Context.getService(CohortService.class).getCohortMemUuid(uuid);
 	}
-
+	
 	@Override
 	public void purge(CohortMember arg0, RequestContext arg1)
 			throws ResponseException {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	protected PageableResult doGetAll(RequestContext context) {
-		return new NeedsPaging<CohortMember>(Context.getService(CohortService.class).findCohortMember(), context);	
+		return new NeedsPaging<CohortMember>(Context.getService(CohortService.class).findCohortMember(), context);
 	}
-
+	
 	@Override
 	public SimpleObject search(RequestContext context) throws ResponseException {
-		List<CohortMember> cohort=Context.getService(CohortService.class).findCohortMember(context.getRequest().getParameter("h"));
+		List<CohortMember> cohort = Context.getService(CohortService.class).findCohortMember(context.getRequest().getParameter("h"));
 		return new NeedsPaging<CohortMember>(cohort, context).toSimpleObject(this);
 	}
 	
-
+	
 }
